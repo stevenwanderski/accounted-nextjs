@@ -19,3 +19,16 @@ body {
   width: 108px;
   @apply inline-block py-2 font-bold text-center rounded;
 }
+
+.label {
+  @apply block mb-2;
+}
+
+.input {
+  background: var(--background);
+  color: var(--foreground);
+  border: solid var(--foreground) 1px;
+  border-radius: 4px;
+  height: 40px;
+  padding: 0 16px;
+}

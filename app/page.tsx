@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function Home() {
   return (
     <div className="max-w-5xl mx-auto py-24">
@@ -12,7 +14,7 @@ export default function Home() {
 
         <div className="flex gap-8">
           <a href="#" className="btn">Sign Up</a>
-          <a href="#" className="btn">Log In</a>
+          <Link href="/login" className="btn">Log In</Link>
         </div>
       </div>
     </div>
