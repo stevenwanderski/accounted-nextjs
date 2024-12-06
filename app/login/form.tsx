@@ -5,7 +5,9 @@ import { useFormStatus } from "react-dom";
 import { login } from './actions'
 
 const initialState = {
-  message: "",
+  authError: '',
+  fieldErrors: {},
+  email: ''
 };
 
 function SubmitButton() {
@@ -13,7 +15,7 @@ function SubmitButton() {
 
   return (
     <button type="submit" className="btn disabled:cursor-wait" disabled={pending}>
-      Add
+      Log In
     </button>
   );
 }
@@ -25,9 +27,9 @@ export default function LoginForm() {
     <div>
       <h1 className="mb-8 font-bold text-xl">Log In</h1>
 
-      {state?.message && (
+      {state?.authError && (
         <div className="text-red-500 mb-4">
-          {state?.message}
+          {state?.authError}
         </div>
       )}
 
@@ -35,12 +37,37 @@ export default function LoginForm() {
         <div className="grid gap-8">
           <div>
             <label htmlFor="email" className="label">Email:</label>
-            <input id="email" name="email" type="email" className="input w-full" />
+
+            <input
+              id="email"
+              name="email"
+              type="text"
+              className="input w-full"
+              defaultValue={state.email}
+            />
+
+            {state.fieldErrors['email'] && (
+              <div className="text-sm text-red-500 mt-2">
+                {state.fieldErrors['email']}
+              </div>
+            )}
           </div>
 
           <div>
             <label htmlFor="password" className="label">Password:</label>
-            <input id="password" name="password" type="password" className="input w-full" />
+
+            <input
+              id="password"
+              name="password"
+              type="password"
+              className="input w-full"
+            />
+
+            {state.fieldErrors['password'] && (
+              <div className="text-sm text-red-500 mt-2">
+                {state.fieldErrors['password']}
+              </div>
+            )}
           </div>
 
           <SubmitButton />
