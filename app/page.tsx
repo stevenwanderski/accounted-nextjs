@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Button } from '@/components/ui/button';
 
 export default function Home() {
   return (
@@ -13,8 +14,13 @@ export default function Home() {
         </div>
 
         <div className="flex gap-8">
-          <a href="#" className="btn">Sign Up</a>
-          <Link href="/login" className="btn">Log In</Link>
+          <Button size="lg" asChild>
+            <Link href="/signup" className="btn">Sign Up</Link>
+          </Button>
+
+          <Button size="lg" asChild>
+            <Link href="/login" className="btn">Log In</Link>
+          </Button>
         </div>
       </div>
     </div>

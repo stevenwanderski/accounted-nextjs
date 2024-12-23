@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
-import { login } from '../../auth/actions';
+import { signup } from '../../auth/actions'
 import Link from 'next/link';
 
 const initialState = {
@@ -16,17 +16,17 @@ function SubmitButton() {
 
   return (
     <button type="submit" className="btn disabled:cursor-wait" disabled={pending}>
-      Log In
+      Sign Up
     </button>
   );
 }
 
-export default function LoginForm() {
-  const [state, formAction] = useActionState(login, initialState);
+export default function SignupForm() {
+  const [state, formAction] = useActionState(signup, initialState);
 
   return (
     <div className="px-10 py-8 rounded border-white border">
-      <h1 className="mb-8 font-bold">Log In</h1>
+      <h1 className="mb-8 font-bold">Sign Up</h1>
 
       {state?.authError && (
         <div className="text-red-500 mb-4">
@@ -74,7 +74,7 @@ export default function LoginForm() {
           <div className="flex justify-between items-center">
             <SubmitButton />
 
-            <Link href="/signup">Sign Up</Link>
+            <Link href="/login">Log In</Link>
           </div>
         </div>
       </form>
