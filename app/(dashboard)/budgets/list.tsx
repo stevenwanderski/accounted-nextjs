@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { format } from 'date-fns';
+import Budget from '@/types/budget';
 
-export default function BudgetList({ budgets }) {
+export default function BudgetList({ budgets } : { budgets: Budget[] }) {
   return (
     <div className="divide-y mb-5">
       {budgets.map((budget) => {

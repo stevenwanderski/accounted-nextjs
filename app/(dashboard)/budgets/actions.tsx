@@ -5,7 +5,7 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function createBudget(formData) {
+export async function createBudget(formData: FormData) {
   await prisma.budget.create({
     data: {
       month: Number(formData.get('month')),
