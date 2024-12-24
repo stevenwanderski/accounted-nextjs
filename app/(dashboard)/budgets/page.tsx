@@ -4,6 +4,8 @@ import BudgetList from './list';
 
 const prisma = new PrismaClient()
 
+export const dynamic = 'force-dynamic'
+
 export default async function BudgetsPage() {
   const budgets = await prisma.budget.findMany()
 
