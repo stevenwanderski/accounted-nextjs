@@ -14,7 +14,17 @@ datasource db {
 }
 
 model Budget {
-  id Int @id @default(autoincrement())
-  month Int
-  year Int
+  id        Int        @id @default(autoincrement())
+  month     Int
+  year      Int
+  lineItems LineItem[]
+}
+
+model LineItem {
+  id       Int      @id @default(autoincrement())
+  name     String
+  date     DateTime @db.Timestamptz(3)
+  amount   Float
+  budget   Budget   @relation(fields: [budgetId], references: [id])
+  budgetId Int
 }
