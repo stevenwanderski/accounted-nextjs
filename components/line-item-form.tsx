@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from "@/components/ui/label"
-import FormItem from "@/components/form-item"
-import { useState } from 'react'
-import { useFormStatus } from 'react-dom'
-import { createLineItem } from '@/actions/create-line-item'
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import FormItem from "@/components/form-item";
+import { useState } from "react";
+import { useFormStatus } from "react-dom";
+import { createLineItem } from "@/actions/line-items";
 
 import {
   Dialog,
@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -26,7 +26,7 @@ function SubmitButton() {
   );
 }
 
-export default function LineItemForm({ budgetId } : { budgetId: number }) {
+export default function LineItemForm({ budgetId }: { budgetId: number }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -39,11 +39,13 @@ export default function LineItemForm({ budgetId } : { budgetId: number }) {
           <DialogTitle>New Line Item</DialogTitle>
         </DialogHeader>
 
-        <form action={async (formValues) => {
-          createLineItem(formValues, budgetId);
+        <form
+          action={async (formValues) => {
+            createLineItem(formValues, budgetId);
 
-          setOpen(false);
-        }}>
+            setOpen(false);
+          }}
+        >
           <div className="mb-5 space-y-1">
             <Label htmlFor="name">Name</Label>
             <Input type="text" name="name" id="name" />
@@ -63,10 +65,10 @@ export default function LineItemForm({ budgetId } : { budgetId: number }) {
 
           <div className="flex gap-3">
             <SubmitButton />
-            <Button variant='outline'>Cancel</Button>
+            <Button variant="outline">Cancel</Button>
           </div>
         </form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

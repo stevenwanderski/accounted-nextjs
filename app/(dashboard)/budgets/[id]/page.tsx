@@ -16,9 +16,14 @@ export default async function BudgetPage({
     where: { id: Number(id) },
     include: {
       lineItems: {
-        orderBy: {
-          date: "asc",
-        },
+        orderBy: [
+          {
+            date: "asc",
+          },
+          {
+            name: "asc",
+          },
+        ],
       },
     },
   });
@@ -36,7 +41,7 @@ export default async function BudgetPage({
       </div>
 
       <div>
-        <LineItemList lineItems={budget?.lineItems} />
+        <LineItemList lineItems={budget?.lineItems} budgetId={id} />
       </div>
     </div>
   );
