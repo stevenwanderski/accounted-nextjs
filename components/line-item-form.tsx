@@ -4,8 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import FormItem from "@/components/form-item";
-import { useState } from "react";
-import { useFormStatus } from "react-dom";
+import { useState, useActionState, useEffect } from "react";
 import { createLineItem } from "@/actions/line-items";
 
 import {
@@ -16,18 +15,27 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button aria-disabled={pending} disabled={pending}>
-      Add
-    </Button>
-  );
-}
+const initialState = {
+  errors: {
+    name: "",
+    date: "",
+    amount: "",
+  },
+  success: false,
+};
 
 export default function LineItemForm({ budgetId }: { budgetId: number }) {
   const [open, setOpen] = useState(false);
+  const [state, formAction, pending] = useActionState(
+    (prevState, formData) => createLineItem(prevState, formData, budgetId),
+    initialState,
+  );
+
+  useEffect(() => {
+    if (state.success) {
+      setOpen(false);
+    }
+  }, [state]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -39,16 +47,13 @@ export default function LineItemForm({ budgetId }: { budgetId: number }) {
           <DialogTitle>New Line Item</DialogTitle>
         </DialogHeader>
 
-        <form
-          action={async (formValues) => {
-            createLineItem(formValues, budgetId);
-
-            setOpen(false);
-          }}
-        >
+        <form action={formAction}>
           <div className="mb-5 space-y-1">
             <Label htmlFor="name">Name</Label>
             <Input type="text" name="name" id="name" />
+            {state.errors?.name && (
+              <p className="text-red-500 text-sm pt-1">{state.errors.name}</p>
+            )}
           </div>
 
           <div className="flex gap-5 mb-5">
@@ -64,7 +69,10 @@ export default function LineItemForm({ budgetId }: { budgetId: number }) {
           </div>
 
           <div className="flex gap-3">
-            <SubmitButton />
+            <Button aria-disabled={pending} disabled={pending}>
+              Add
+            </Button>
+
             <Button variant="outline">Cancel</Button>
           </div>
         </form>
